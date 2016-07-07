@@ -37,6 +37,10 @@
 							<mainClass>com.smilep.main.VCFFileProcessor</mainClass>
 							<id>VCFFileProcessor</id>
 						</program>
+						<program>
+                            <mainClass>com.smilep.main.GoogleCodeJam</mainClass>
+                            <id>GoogleCodeJam</id>
+                        </program>
 					</programs>
 				</configuration>
 			</plugin>
