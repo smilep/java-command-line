@@ -8,7 +8,7 @@ import com.smilep.model.RunThisMethod;
 /**
  * @author SmileP
  * 
- *         2016 Qualification round URL :
+ *         Qualification Round 2016 URL :
  *         https://code.google.com/codejam/contest/6254486/dashboard#s=p0
  * 
  */

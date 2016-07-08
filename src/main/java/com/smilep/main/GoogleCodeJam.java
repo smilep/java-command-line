@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import com.smilep.google.codejam.RevengeOfPancakes;
 import com.smilep.google.codejam.SheepCounter;
+import com.smilep.google.codejam.TheLastWord;
 import com.smilep.model.RunThisMethod;
 import com.smilep.util.Util;
 
@@ -20,6 +21,7 @@ public class GoogleCodeJam {
         try {
             executeSolution(SheepCounter.class, true);
             executeSolution(RevengeOfPancakes.class, true);
+            executeSolution(TheLastWord.class, true);
             System.out.println("GoogleCodeJam execution complete without errors");
         } catch (Exception e) {
             e.printStackTrace();
