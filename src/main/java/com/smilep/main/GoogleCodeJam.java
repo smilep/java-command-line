@@ -3,6 +3,7 @@ package com.smilep.main;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 
+import com.smilep.google.codejam.RevengeOfPancakes;
 import com.smilep.google.codejam.SheepCounter;
 import com.smilep.model.RunThisMethod;
 import com.smilep.util.Util;
@@ -17,12 +18,13 @@ public class GoogleCodeJam {
 
     public static void main(String[] args) {
         try {
-            executeSolution(SheepCounter.class);
+            executeSolution(SheepCounter.class, true);
+            executeSolution(RevengeOfPancakes.class, true);
+            System.out.println("GoogleCodeJam execution complete without errors");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("GoogleCodeJam execution complete with errors");
         }
-        System.out.println("GoogleCodeJam execution complete without errors");
     }
 
     /**
@@ -33,12 +35,15 @@ public class GoogleCodeJam {
      * resources
      * 
      * @param clazz
+     * @param outputToFile
      * @throws Exception
      */
-    private static void executeSolution(Class<? extends Object> clazz) throws Exception {
+    private static void executeSolution(Class<? extends Object> clazz, boolean outputToFile) throws Exception {
         PrintStream ps = new PrintStream(Util.getOutputFilename(clazz));
         PrintStream orig = System.out;
-        System.setOut(ps);
+        if (outputToFile) {
+            System.setOut(ps);
+        }
 
         Method[] methods = clazz.getMethods();
         for (Method method : methods) {

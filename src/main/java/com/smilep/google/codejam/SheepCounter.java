@@ -21,7 +21,7 @@ public class SheepCounter {
         while ((strLine = br.readLine()) != null) {
             // Ignore first line as it contains number of test cases
             if (i > 0) {
-                SheepCounter.countSheep(Integer.parseInt(strLine), i);
+                countSheep(Integer.parseInt(strLine), i);
             }
             i++;
         }
