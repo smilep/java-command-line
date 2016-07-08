@@ -33,4 +33,24 @@ public class Util {
         return new BufferedReader(new FileReader(file));
     }
 
+    /**
+     * Generates output filename
+     * 
+     * @param clazz
+     * @return
+     */
+    public static String getOutputFilename(Class<? extends Object> clazz) {
+        return clazz.getSimpleName() + ".out";
+    }
+
+    /**
+     * Generates input filename
+     * 
+     * @param clazz
+     * @return
+     */
+    public static String getInutFilename(Class<? extends Object> clazz) {
+        return clazz.getSimpleName() + ".in";
+    }
+
 }

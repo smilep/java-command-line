@@ -3,6 +3,8 @@ package com.smilep.google.codejam;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.smilep.model.RunThisMethod;
+
 /**
  * @author SmileP
  * 
@@ -12,6 +14,7 @@ import java.io.IOException;
  */
 public class SheepCounter {
 
+    @RunThisMethod
     public static void countSheep(BufferedReader br) throws NumberFormatException, IOException {
         String strLine;
         int i = 0;
