@@ -13,23 +13,23 @@ import com.smilep.util.Util;
 /**
  * @author SmileP
  * 
- *         Main class for Google CodeJam problems
+ *         Main class for coding problems
  * 
  */
-public class GoogleCodeJam {
+public class SolutionExecutor {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        System.out.println("GoogleCodeJam execution started");
+        System.out.println("SolutionExecutor execution started");
         try {
             executeSolution(SheepCounter.class, true);
             executeSolution(RevengeOfPancakes.class, true);
             executeSolution(TheLastWord.class, true);
             executeSolution(PrimePrime.class, true);
-            System.out.println("GoogleCodeJam execution complete without errors");
+            System.out.println("SolutionExecutor execution complete without errors");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("GoogleCodeJam execution complete with errors");
+            System.out.println("SolutionExecutor execution complete with errors");
         }
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
