@@ -22,7 +22,7 @@ public class VCFFileProcessor {
 
     /**
      * Prints VCF contacts in Name - Phone number pairs. It also prints relevant
-     * errors in processing conatacts.
+     * errors in processing contacts.
      */
     private static void printVCFContacts() {
         boolean begin = false;
