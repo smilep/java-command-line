@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 import org.apache.commons.io.IOUtils;
 
@@ -51,6 +54,38 @@ public class Util {
      */
     public static String getInutFilename(Class<? extends Object> clazz) {
         return clazz.getSimpleName() + ".in";
+    }
+
+    /**
+     * Executes the method with annotation annotationClass and prints out to a
+     * file with name ClassName.out if outputToFile is true else prints to
+     * console
+     * 
+     * It takes an input file of the name ClassName.in which has to be placed in
+     * resources
+     * 
+     * @param clazz
+     * @param annotationClass
+     * @param outputToFile
+     * @throws Exception
+     */
+    public static void executeMethods(Class<? extends Object> clazz, Class<? extends Annotation> annotationClass,
+            boolean outputToFile) throws Exception {
+        PrintStream ps = new PrintStream(getOutputFilename(clazz));
+        PrintStream orig = System.out;
+        if (outputToFile) {
+            System.setOut(ps);
+        }
+
+        Method[] methods = clazz.getMethods();
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(annotationClass)) {
+                method.invoke(clazz, getFileAsBufferedReader(Util.getInutFilename(clazz)));
+            }
+        }
+
+        System.setOut(orig);
+        ps.close();
     }
 
 }
