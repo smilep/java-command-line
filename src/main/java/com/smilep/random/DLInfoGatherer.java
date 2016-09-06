@@ -1,11 +1,16 @@
 package com.smilep.random;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -26,6 +31,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import au.com.bytecode.opencsv.CSVWriter;
+
 import com.smilep.model.RunThisMethod;
 
 @SuppressWarnings("deprecation")
@@ -33,6 +40,7 @@ public class DLInfoGatherer {
 
     public static final String URL = "https://dlpay.dimts.in/dldetail/default.aspx";
     private static HttpClient client;
+    private static Properties prop = new Properties();
 
     static {
         try {
@@ -44,6 +52,11 @@ public class DLInfoGatherer {
              * "org.apache.commons.logging.simplelog.log.org.apache.http.wire",
              * "DEBUG");
              */
+
+            // load a properties file
+            InputStream input = new FileInputStream("config.properties");
+            prop.load(input);
+
             SSLContext sslContext = SSLContext.getInstance("SSL");
 
             // set up a TrustManager that trusts everything
@@ -76,23 +89,19 @@ public class DLInfoGatherer {
 
     }
 
-    public static void main(String[] args) {
-        try {
-            postRequest("DL-1320100056846");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @RunThisMethod
     public static void startDLInfoGatherer(BufferedReader br) throws Exception {
+        List<String[]> rows = new ArrayList<String[]>();
+        rows.add(new String[] { "DL Number", "Name" });
         String strLine = null;
         while ((strLine = br.readLine()) != null) {
-            postRequest(strLine);
+            postRequest(rows, strLine);
         }
+        client.getConnectionManager().shutdown();
+        writeToFile(rows);
     }
 
-    private static void postRequest(String dlNum) throws Exception {
+    private static void postRequest(List<String[]> rows, String dlNum) throws Exception {
         HttpPost post = new HttpPost(URL);
 
         // Setting headers and request params
@@ -126,14 +135,36 @@ public class DLInfoGatherer {
         while ((line = rd.readLine()) != null) {
             result.append(line);
         }
-        client.getConnectionManager().shutdown();
-        //System.out.println(result.toString());
-        parseHtml(result.toString());
+
+        // String result = prop.getProperty("sampleResponseHTML");
+
+        // System.out.println(result.toString());
+        parseHtml(rows, result.toString());
     }
 
-    private static void parseHtml(String htmlStr) {
+    private static void parseHtml(List<String[]> rows, String htmlStr) {
         Document document = Jsoup.parse(htmlStr.toString());
-        System.out.println(document.getElementById("ctl00_ContentPlaceHolder1_txtname").attr("value"));
+        String dlNum = document.getElementById("ctl00_ContentPlaceHolder1_txtplno").attr("value");
+        String firstName = document.getElementById("ctl00_ContentPlaceHolder1_txtname").attr("value");
+        rows.add(new String[] { dlNum, firstName });
+        System.out.println(firstName);
+
+    }
+
+    private static void writeToFile(List<String[]> rows) {
+        CSVWriter csvWriter = null;
+        try {
+            csvWriter = new CSVWriter(new FileWriter(DLInfoGatherer.class.getSimpleName() + ".csv"));
+            csvWriter.writeAll(rows);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                csvWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

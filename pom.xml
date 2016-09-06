@@ -54,12 +54,8 @@
 				<configuration>
 					<programs>
 						<program>
-							<mainClass>com.smilep.main.VCFFileProcessor</mainClass>
-							<id>VCFFileProcessor</id>
-						</program>
-						<program>
-							<mainClass>com.smilep.main.GoogleCodeJam</mainClass>
-							<id>GoogleCodeJam</id>
+							<mainClass>com.smilep.main</mainClass>
+							<id>SolutionExecutor</id>
 						</program>
 					</programs>
 				</configuration>
