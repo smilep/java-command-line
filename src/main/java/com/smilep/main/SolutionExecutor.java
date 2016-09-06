@@ -6,6 +6,7 @@ import com.smilep.google.codejam.TheLastWord;
 import com.smilep.hackerearth.PrimePrime;
 import com.smilep.model.RunThisMethod;
 import com.smilep.random.DLInfoGatherer;
+import com.smilep.random.StringGenerator;
 import com.smilep.util.Util;
 
 /**
@@ -19,12 +20,14 @@ public class SolutionExecutor {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         System.out.println("SolutionExecutor execution started");
+        Class<RunThisMethod> annotation = RunThisMethod.class;
         try {
-            Util.executeMethods(SheepCounter.class, RunThisMethod.class, true);
-            Util.executeMethods(RevengeOfPancakes.class, RunThisMethod.class, true);
-            Util.executeMethods(TheLastWord.class, RunThisMethod.class, true);
-            Util.executeMethods(PrimePrime.class, RunThisMethod.class, true);
-            Util.executeMethods(DLInfoGatherer.class, RunThisMethod.class, true);
+            Util.executeMethods(SheepCounter.class, annotation, true);
+            Util.executeMethods(RevengeOfPancakes.class, annotation, true);
+            Util.executeMethods(TheLastWord.class, annotation, true);
+            Util.executeMethods(PrimePrime.class, annotation, true);
+            Util.executeMethods(DLInfoGatherer.class, annotation, true);
+            Util.executeMethods(StringGenerator.class, annotation, true);
             System.out.println("SolutionExecutor execution complete without errors");
         } catch (Exception e) {
             e.printStackTrace();
