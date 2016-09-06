@@ -1,10 +1,8 @@
 package com.smilep.random;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
@@ -34,13 +32,14 @@ import org.jsoup.nodes.Document;
 import au.com.bytecode.opencsv.CSVWriter;
 
 import com.smilep.model.RunThisMethod;
+import com.smilep.util.Util;
 
 @SuppressWarnings("deprecation")
 public class DLInfoGatherer {
 
     public static final String URL = "https://dlpay.dimts.in/dldetail/default.aspx";
     private static HttpClient client;
-    private static Properties prop = new Properties();
+    private static Properties properties = Util.properties;
 
     static {
         try {
@@ -52,10 +51,6 @@ public class DLInfoGatherer {
              * "org.apache.commons.logging.simplelog.log.org.apache.http.wire",
              * "DEBUG");
              */
-
-            // load a properties file
-            InputStream input = new FileInputStream("config.properties");
-            prop.load(input);
 
             SSLContext sslContext = SSLContext.getInstance("SSL");
 
@@ -125,13 +120,13 @@ public class DLInfoGatherer {
         post.addHeader("Accept-Language", "en-US,en;q=0.5");
         post.addHeader("Referer", "https://dlpay.dimts.in/dldetail/");
         post.addHeader("Connection", "keep-alive");
-        
+
         StringBuffer result = new StringBuffer();
 
         // Post form
-        if("true".equalsIgnoreCase(prop.getProperty("localMode"))) {
+        if ("true".equalsIgnoreCase(properties.getProperty("localMode"))) {
             // Get HTML response from property file
-            result.append(prop.getProperty("sampleResponseHTML"));
+            result.append(properties.getProperty("sampleResponseHTML"));
         } else {
             HttpResponse response = client.execute(post);
 

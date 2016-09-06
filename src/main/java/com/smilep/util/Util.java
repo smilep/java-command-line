@@ -2,11 +2,14 @@ package com.smilep.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Properties;
 
 /**
  * @author SmileP
@@ -15,6 +18,19 @@ import java.lang.reflect.Method;
  * 
  */
 public class Util {
+
+    public static Properties properties = new Properties();
+
+    static {
+        InputStream input;
+        try {
+            input = new FileInputStream("config.properties");
+            properties.load(input);
+        } catch (Exception e) {
+            System.out.println("property file not found");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Reads the file in resources folder and returns its BufferedReader
