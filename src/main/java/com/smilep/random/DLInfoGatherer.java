@@ -142,12 +142,15 @@ public class DLInfoGatherer {
     }
 
     private static void parseHtml(List<String[]> rows, String htmlStr) {
-        Document document = Jsoup.parse(htmlStr.toString());
-        String dlNum = document.getElementById("ctl00_ContentPlaceHolder1_txtplno").attr("value");
-        String firstName = document.getElementById("ctl00_ContentPlaceHolder1_txtname").attr("value");
-        rows.add(new String[] { dlNum, firstName });
-        System.out.println(firstName);
-
+        try {
+            Document document = Jsoup.parse(htmlStr.toString());
+            String dlNum = document.getElementById("ctl00_ContentPlaceHolder1_txtplno").attr("value");
+            String firstName = document.getElementById("ctl00_ContentPlaceHolder1_txtname").attr("value");
+            rows.add(new String[] { dlNum, firstName });
+            System.out.println(firstName);
+        } catch (Exception e) {
+            System.err.println("Data not found for this ID");
+        }
     }
 
     private static void writeToFile(List<String[]> rows) {
