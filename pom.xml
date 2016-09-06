@@ -54,7 +54,7 @@
 				<configuration>
 					<programs>
 						<program>
-							<mainClass>com.smilep.main</mainClass>
+							<mainClass>com.smilep.main.SolutionExecutor</mainClass>
 							<id>SolutionExecutor</id>
 						</program>
 					</programs>

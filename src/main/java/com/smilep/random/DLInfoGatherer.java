@@ -125,18 +125,22 @@ public class DLInfoGatherer {
         post.addHeader("Accept-Language", "en-US,en;q=0.5");
         post.addHeader("Referer", "https://dlpay.dimts.in/dldetail/");
         post.addHeader("Connection", "keep-alive");
+        
+        StringBuffer result = new StringBuffer();
 
         // Post form
-        HttpResponse response = client.execute(post);
+        if("true".equalsIgnoreCase(prop.getProperty("localMode"))) {
+            // Get HTML response from property file
+            result.append(prop.getProperty("sampleResponseHTML"));
+        } else {
+            HttpResponse response = client.execute(post);
 
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        StringBuffer result = new StringBuffer();
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
+            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
+            }
         }
-
-        // String result = prop.getProperty("sampleResponseHTML");
 
         // System.out.println(result.toString());
         parseHtml(rows, result.toString());
