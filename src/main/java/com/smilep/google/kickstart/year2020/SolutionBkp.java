@@ -1,9 +1,9 @@
-package com.smilep.kickstart;
+package com.smilep.google.kickstart.year2020;
 
 import java.util.*;
 import java.io.*;
 
-public class Solution {
+public class SolutionBkp {
     public static void main(String[] args) {
         Scanner in = null;
         try {

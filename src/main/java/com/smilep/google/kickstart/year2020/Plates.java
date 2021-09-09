@@ -1,4 +1,4 @@
-package com.smilep.kickstart;
+package com.smilep.google.kickstart.year2020;
 
 import java.util.*;
 import java.io.*;
